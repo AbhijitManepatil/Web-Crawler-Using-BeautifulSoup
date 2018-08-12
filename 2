@@ -1,0 +1,48 @@
+import urllib2
+import BeautifulSoup
+from bs4 import BeautifulSoup
+website = 'https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India'
+
+page=urllib2.urlopen(website)
+
+soup = BeautifulSoup(page)
+
+#print soup.prettify()
+
+right_table= soup.find('table', class_='wikitable sortable plainrowheaders')
+
+#print right_table
+
+a=[]
+b=[]
+c=[]
+d=[]
+e=[]
+f=[]
+g=[]
+
+for r in right_table.findAll("tr"):
+    data=r.findAll('td')
+    states=r.findAll('th')
+
+    if len(data)==6:
+        a.append(data[0].find(text=True))
+        b.append(states[0].find(text=True))
+        c.append(data[1].find(text=True))
+        d.append(data[2].find(text=True))
+        e.append(data[3].find(text=True))
+        f.append(data[4].find(text=True))
+        g.append(data[5].find(text=True))
+
+import pandas as pd
+df=pd.DataFrame(a, columns=['Number'])
+df['State']=b
+df['Admin']=c
+df['L_Capital']=d
+df['Ju_Capital']=e
+df['Y_Capital']=f
+df['Fom']=g
+
+print df
+
+
