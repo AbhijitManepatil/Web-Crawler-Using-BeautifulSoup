@@ -1,0 +1,28 @@
+import BeautifulSoup
+import urllib2
+from bs4 import BeautifulSoup
+
+#Set the Weblink
+webpage = "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India"
+page=urllib2.urlopen(webpage)
+
+#Put the webpage in Soup Format
+soup =BeautifulSoup(page)
+#print soup.prettify()
+
+print soup.parents
+print soup.title  #tag name
+print soup.title.string
+#print soup.table
+#print soup.a
+all_links= soup.findAll('a')
+#for links in all_links:
+#    print links.get('href')
+
+all_table=soup.findAll('table')
+#for td in all_table:
+#    print td.get('td')
+
+right_table= soup.find('table', class_='wikitable sortable plainrowheaders jquery-tablesorter')
+
+right_table
